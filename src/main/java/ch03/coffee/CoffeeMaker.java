@@ -5,37 +5,57 @@ import java.util.logging.Logger;
 public class CoffeeMaker {
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    final double waterForCaffee = 0.1;
-    final double beanForCaffee = 0.05;
+    final double waterForCaffee;
+    final double beanForCaffee;
+
+    public CoffeeMaker(double waterForCaffee, double beanForCaffee) {
+        this.waterForCaffee = waterForCaffee;
+        this.beanForCaffee = beanForCaffee;
+    }
 
     private int temp = 10;
     private double waterLevel = 0;
     private double amountOfBeans = 0;
+    
 
-    public static void main(String[] args) {
-        CoffeeMaker cm = new CoffeeMaker();
-
-        cm.makeCoffee(2);
-    }
-
-    public void makeCoffee(int count) {
+    public void make(int count) {
         log.info("Making coffee ...");
         for (int i = 0 ; i < count ; ++i) {
             log.info("coffee no " + i);
-            if (amountOfBeans < beanForCaffee) {
-                log.info("Not enough beans, refilling...");
-                amountOfBeans = 1.0;
-            }
+            checkAndRefillIngredients();
+            
             grindBeans();
-
-            if (waterLevel < waterForCaffee) {
-                log.info("Not enough water, refilling...");
-                waterLevel = 1.0;
-            }
+            
             boilWater();
 
             releaseWater();
         }
+    }
+
+    private void checkAndRefillIngredients() {
+        if (!isThereEnoughBeans()){
+            reloadBeans();
+        }
+        if (!isThereEnoughWater()){
+            reloadWater();
+        }
+    }
+
+    private void reloadWater() {
+        waterLevel = 1.0;
+    }
+
+    private void reloadBeans() {
+        amountOfBeans = 1.0;
+    }
+
+
+    private boolean isThereEnoughWater() {
+        return waterLevel < waterForCaffee;
+    }
+
+    private boolean isThereEnoughBeans() {
+        return amountOfBeans < beanForCaffee;
     }
 
     private void releaseWater() {
@@ -44,10 +64,10 @@ public class CoffeeMaker {
     }
 
     private void boilWater() {
-        do {
+        while (getTemp() <= 100 ){
             log.info("Heating up ... " + getTemp());
             heatWater();
-        } while (getTemp() <= 100 );
+        }
     }
 
     private int getTemp() {
@@ -59,6 +79,8 @@ public class CoffeeMaker {
     }
 
     private void grindBeans() {
+        log.info("Grinding beans.");
         amountOfBeans -= beanForCaffee;
+        log.info("Remained beans: " + amountOfBeans);
     }
 }
