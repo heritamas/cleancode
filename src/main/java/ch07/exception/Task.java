@@ -2,13 +2,13 @@ package ch07.exception;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class Task {
 
     static Logger LOG = Logger.getLogger(Task.class.getName());
-    static ExecutorService executor = Executors.newFixedThreadPool(10);
 
     protected ComputeStatus status;
 
@@ -21,19 +21,17 @@ public class Task {
         status = ComputeStatus.STARTED;
         LOG.info("in start(): " + getStatus());
 
-        executor.submit(this::advance);
     }
 
     public ComputeStatus getStatus() {
         return status;
     }
 
-    public void advance() {
+    public void advance() throws TaskError {
         try {
             LOG.info("entered advance(): " + getStatus());
             status = ComputeStatus.RUNNING;
             LOG.info("in advance(): " + getStatus());
-
 
             TimeUnit.MILLISECONDS.sleep(100);
             status = ComputeStatus.FINISHED;

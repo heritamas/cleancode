@@ -9,7 +9,7 @@ public class WrongTask extends Task {
     }
 
     @Override
-    public void advance() {
+    public void advance() throws TaskError {
         try {
             LOG.info("entered advance(): " + getStatus());
             status = ComputeStatus.RUNNING;
@@ -17,7 +17,7 @@ public class WrongTask extends Task {
 
             TimeUnit.MILLISECONDS.sleep(100);
             status = ComputeStatus.ERROR;
-            LOG.info("exiting advance(): " + getStatus());
+            throw new TaskError("Task finished with ERROR", this);
         } catch (InterruptedException e) {
             status = ComputeStatus.ABORTED;
             e.printStackTrace();
