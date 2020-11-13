@@ -27,7 +27,7 @@ public class Task {
         return status;
     }
 
-    public void advance() throws TaskError {
+    public Void advance() throws TaskError {
         try {
             LOG.info("entered advance(): " + getStatus());
             status = ComputeStatus.RUNNING;
@@ -40,5 +40,6 @@ public class Task {
             status = ComputeStatus.ABORTED;
             e.printStackTrace();
         }
+        return null;
     }
 }

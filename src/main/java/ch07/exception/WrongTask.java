@@ -9,7 +9,7 @@ public class WrongTask extends Task {
     }
 
     @Override
-    public void advance() throws TaskError {
+    public Void advance() throws TaskError {
         try {
             LOG.info("entered advance(): " + getStatus());
             status = ComputeStatus.RUNNING;
@@ -22,6 +22,6 @@ public class WrongTask extends Task {
             status = ComputeStatus.ABORTED;
             e.printStackTrace();
         }
-
+        return null;
     }
 }
