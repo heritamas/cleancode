@@ -1,7 +1,5 @@
 package ch07.exception;
 
-import org.omg.CORBA.TIMEOUT;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
