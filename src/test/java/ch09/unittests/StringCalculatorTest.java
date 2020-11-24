@@ -19,7 +19,7 @@ class StringCalculatorTest {
     
     @Test
     public final void whenAddingMultipleNumbersThenResultIsCorrect() {
-        assertEquals(10, StringCalculator.add("2,3,5"));
+        assertEquals(10, StringCalculator.add("2,3,5")); 
     }
     
     @Test
