@@ -20,5 +20,10 @@ public class ServiceUser {
         IntStream.range(0,3).forEach(i -> sv.doThis());
         IntStream.range(0,2).forEach(i -> sv.doThat());
     }
+    
+    public void whatDayIsIt() {
+        createService("printer");
+        sv.doSomethingWithArgument(Service.days.TUESDAY);
+    }
 
 }

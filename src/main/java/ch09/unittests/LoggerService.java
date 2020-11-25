@@ -16,6 +16,11 @@ public class LoggerService implements Service {
     }
 
     @Override
+    public void doSomethingWithArgument(days day) {
+        log.info("Today is: " + day);
+    }
+
+    @Override
     public void doThisAndThat() {
         doThis();
         doThat();

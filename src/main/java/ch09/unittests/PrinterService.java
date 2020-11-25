@@ -13,6 +13,11 @@ public class PrinterService implements Service {
     }
 
     @Override
+    public void doSomethingWithArgument(days day) {
+        System.out.println("Today is " + day);
+    }
+
+    @Override
     public void doThisAndThat() {
         doThis();
         doThat();
