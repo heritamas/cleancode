@@ -1,0 +1,40 @@
+Job slowness
+
+
+PROBLEM STATEMENT
+
+The oozie hive action job is facing the slowness issue. The job that gets completed within 50 mins is taking more time to get completed.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SUPPORT ANALYSIS
+
+Total time taken by application_1604628200018_493386 is around 19 minutes
+
+2020-11-09 08:44:59,302 INFO [main] org.apache.hadoop.mapreduce.v2.app.MRAppMaster: Created MRAppMaster for application appattempt_1604628200018_493386_000001
+..
+2020-11-09 09:14:38,524 INFO [Thread-133] org.mortbay.log: Stopped HttpServer2$SelectChannelConnectorWithSafeStartup@0.0.0.0:0
+
+Connection request sent to hive from Oozie launcher
+
+2020-11-09 08:49:53,547 INFO [main] org.apache.hive.jdbc.Utils: Resolved authority: hs2prod.corp.adobe.com:10000
+///// So there is a 5 minute delay between start of application and connecting to hive
+
+Actual query execution seems to have started at 2020-11-09 08:52:35 & it involved 7 yarn applications that took around 12 minutes like each application took 2 or less minutes and i see much delay in execution
+application_1604628200018_494348 took 2 min
+application_1604628200018_494688 took 2 min
+application_1604628200018_495150 took 1 min
+application_1604628200018_495383 took 2 min
+application_1604628200018_495384 took 1min 28 sec
+application_1604628200018_496019 took 1min 25 sec
+application_1604628200018_496600 took 2 min
+
+===============================
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+EXPECTED ENGINEERING ACTION
+
+Customer wants to know what is causing slowness.
+
+We have working parallely with Hive BL and oozie BL as well

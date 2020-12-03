@@ -1,0 +1,8 @@
+Masking the secret values in the CM
+Issue:
+====
+The "Configuring ADLS Connectivity for CDH" consists of the configuration which has the secret credential and those values are captured in the plaintext which raises a security concern.
+
+Requirement:
+==========
+In order to address this security concern in the CM, there should be a password-type field to be introduced in the CM which can mask the secret values configured like password, client-ID, Client Secret

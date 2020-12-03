@@ -1,0 +1,6 @@
+[io]
+input = ["ENGESC-3444", "ENGESC-5424", "ENGESC-3674"]
+output = "statistics"
+
+[task]
+patterns = [ "security", "concern", "CM", "issue", "customer"]

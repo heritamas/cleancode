@@ -1,0 +1,25 @@
+Auto-config issues on Cloudera Manager Template
+
+
+
+PROBLEM STATEMENT
+
+The customer is having issues when deploying the 2 solr services via a cluster template.
+
+We would like to know How does auto-config know which one is which when you have different Solr services?
+
+On the customer test it seems to pick the first one encountered in the template, but then it also changes the name of the second one to have a seemingly random numerical suffix.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+SUPPORT ANALYSIS
+
+This issue is related with ENGESC-3617. The Solr engineering team has discarted an issue from the Solr side, it seems more a template Integration/parsing issue on Cloudera Manager.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+EXPECTED ENGINEERING ACTION
+
+This is a completely new problem and we need Cloudera Manager engineering help as we don't know the internals of the auto-config and the template import.
+
+
