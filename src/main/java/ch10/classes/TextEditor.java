@@ -50,16 +50,16 @@ public class TextEditor {
             stats.put(fileName, foundPatterns);
         }
         try ( BufferedWriter outputFile = Files.newBufferedWriter(Paths.get(extractor.getOutputFileName()), StandardOpenOption.CREATE) ) {
-            outputFile.write(stats.toString());
+            outputFile.write(invertGroupByMap(stats).toString());
         }
     }
 
     public static <K, V> Map<V, Set<K>> invertGroupByMap(final Map<K, Set<V>> src)
     {
         return src.entrySet().stream()
-                .flatMap(e -> e.getValue().stream().map(a -> new AbstractMap.SimpleImmutableEntry<>(a, e.getKey())))
+                .flatMap(entry -> entry.getValue().stream().map(value -> new AbstractMap.SimpleImmutableEntry<>(value, entry.getKey())))
                 .collect(Collectors.groupingBy(Map.Entry::getKey,
-                        Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
+                        Collectors.mapping(Map.Entry::getValue, Collectors.toSet())));
     }
 
 }
