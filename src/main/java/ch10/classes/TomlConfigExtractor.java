@@ -23,7 +23,7 @@ public class TomlConfigExtractor {
         readConfig();
     }
 
-    public void readConfig () throws URISyntaxException, IOException {
+    private void readConfig () throws URISyntaxException, IOException {
         config = Paths.get(getClass().getClassLoader().getResource(configFileName).toURI());
         result = Toml.parse(config);
         if (result.hasErrors()) {

@@ -5,7 +5,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +21,7 @@ public class PatternFinder {
         this.patterns = patterns;
     }
 
-    private void findPatternsInFile() throws URISyntaxException, IOException {
+    public Set<String> findPatternsInFile() throws URISyntaxException, IOException {
         Path filePath = Paths.get(getClass().getClassLoader().getResource(fileName).toURI());
         for (String line : Files.readAllLines(filePath)) {
             for (Pattern pattern : patterns) {
@@ -31,10 +30,7 @@ public class PatternFinder {
                 }
             }
         }
-    }
-
-    public Set<String> foundPatternsInFile() throws IOException, URISyntaxException {
-        findPatternsInFile();
         return foundPatterns;
     }
+    
 }

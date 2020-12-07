@@ -1,25 +1,15 @@
 package ch10.classes;
 
-import org.tomlj.Toml;
-import org.tomlj.TomlArray;
-import org.tomlj.TomlParseResult;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TextEditor {
@@ -28,8 +18,6 @@ public class TextEditor {
         TextEditor te = new TextEditor();
         te.performTasks();
     }
-    
-    Map<String, Set<String>> stats = new HashMap<>();
 
     public void performTasks() {
         try {
@@ -44,9 +32,10 @@ public class TextEditor {
     }
 
     private void doStats(TomlConfigExtractor extractor) throws URISyntaxException, IOException {
+        Map<String, Set<String>> stats = new HashMap<>();
         for (String fileName : extractor.getInputFileNames()) {
             PatternFinder patternFinder = new PatternFinder(fileName, extractor.getPatterns());
-            Set<String> foundPatterns = patternFinder.foundPatternsInFile();
+            Set<String> foundPatterns = patternFinder.findPatternsInFile();
             stats.put(fileName, foundPatterns);
         }
         try ( BufferedWriter outputFile = Files.newBufferedWriter(Paths.get(extractor.getOutputFileName()), StandardOpenOption.CREATE) ) {
@@ -54,12 +43,11 @@ public class TextEditor {
         }
     }
 
-    public static <K, V> Map<V, Set<K>> invertGroupByMap(final Map<K, Set<V>> src)
+    private static <K, V> Map<V, Set<K>> invertGroupByMap(final Map<K, Set<V>> src)
     {
         return src.entrySet().stream()
                 .flatMap(entry -> entry.getValue().stream().map(value -> new AbstractMap.SimpleImmutableEntry<>(value, entry.getKey())))
                 .collect(Collectors.groupingBy(Map.Entry::getKey,
                         Collectors.mapping(Map.Entry::getValue, Collectors.toSet())));
     }
-
 }
